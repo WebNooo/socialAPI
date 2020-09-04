@@ -1,0 +1,35 @@
+{
+  "name": "user_panel_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/app.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "@types/node": "^14.6.3",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.1",
+    "nodemon": "^2.0.4",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.8",
+    "@types/mongoose": "^5.7.36",
+    "@types/validator": "^13.1.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "helmet": "^4.1.0",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2",
+    "validator": "^13.1.1"
+  }
+}
