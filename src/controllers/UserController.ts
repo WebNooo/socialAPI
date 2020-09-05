@@ -12,10 +12,10 @@ class UserController {
         const id: string = req.params.id ?? req.user._id;
 
         await UserModel.findById(id, (err, user) => {
-            if(err){
+            if(err)
                 return res.status(404).json({message: "User Not Found"})
-            }
-                res.json(user)
+            
+            res.json(user)
         });
     }
 
@@ -57,7 +57,8 @@ class UserController {
             password: password,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            gender: req.body.gender
+            gender: req.body.gender,
+            birthday: req.body.birthday
         });
 
         try{

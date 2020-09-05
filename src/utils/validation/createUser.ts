@@ -5,5 +5,6 @@ export default Joi.object({
     password: Joi.string().min(8).required(),
     firstName: Joi.string().min(2).required(),
     lastName: Joi.string().min(2).required(),
-    gender: Joi.number().min(1).required()
+    gender: Joi.number().min(1).required(),
+    birthday: Joi.date().required()
 })

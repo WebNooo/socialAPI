@@ -2,3 +2,4 @@ node_modules
 model
 route
 utils1
+.env
