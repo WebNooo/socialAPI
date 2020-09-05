@@ -1,5 +1,23 @@
-import mongoose, {Schema} from "mongoose"
+import mongoose, {Schema, Document} from "mongoose"
 import validator from 'validator';
+
+export interface IUser extends Document{
+    email: String,
+    password:String,
+    firstName:String,
+    lastName:String,
+    birthday?:Date,
+    city?:Number,
+    country?:Number,
+    photo?:String,
+    lastSeen?:Date,
+    createDate?:Date,
+    createIp?:String,
+    status?:String,
+    gender:Number,
+    confirmed?:Boolean,
+    confirmHash?:String
+}
 
 const UserSchema = new Schema(
     {
@@ -12,7 +30,7 @@ const UserSchema = new Schema(
         country:{type: Number, default: 0},
         photo:{type: String},
         lastSeen:{type: Date},
-        createDate:{type: String, default: new Date},
+        createDate:{type: Date, default: new Date},
         createIp:{type: String},
         status:{type: String},
         gender:{type: Number, required: true, default: 0},
@@ -24,6 +42,6 @@ const UserSchema = new Schema(
     }
 );
 
-const UserModel = mongoose.model("Users", UserSchema);
+const UserModel = mongoose.model<IUser>("Users", UserSchema);
 
 export default UserModel;

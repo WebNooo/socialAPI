@@ -5,6 +5,9 @@ const DialogRouter = express.Router();
 const Dialog = new DialogController()
 
 DialogRouter.get("/create", Dialog.create)
+DialogRouter.delete("/delete", Dialog.delete)
+DialogRouter.post("/add", Dialog.add)
+DialogRouter.get("/", Dialog.index)
 DialogRouter.get("/:id", Dialog.index)
 
 

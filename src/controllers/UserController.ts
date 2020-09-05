@@ -1,5 +1,6 @@
 import express from "express";
 import { UserModel } from "../models/Index";
+import jwt from "jsonwebtoken";
 
 class UserController {
 
@@ -18,7 +19,8 @@ class UserController {
     }
 
     async login(req: express.Request, res: express.Response) {
-
+        const token = jwt.sign({_id: "5f515ba2fd60583eac3e2616"}, process.env.JWT_SECRET || "");
+        res.header('auth-token', token).send({token: token});
     }
 
     async create(req: express.Request, res: express.Response){

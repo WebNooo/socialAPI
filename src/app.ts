@@ -1,18 +1,31 @@
 import mongoose from 'mongoose';
 import express from 'express';
-import bodyParser from 'body-parser';
 import {UserRouter, DialogRouter, MessageRouter}  from './routes/Index'
+import {updateLastSeen, checkAuth} from './middlewares/Index';
+import dotenv from "dotenv"
 
 const app = express();
-app.use(bodyParser.json());
 
-mongoose.connect("mongodb://localhost:27017/social", {
+dotenv.config();
+
+export interface ProcessEnv {
+    [key: string]: string | undefined
+}
+
+mongoose.connect(process.env.DB_CONNECT ?? '', {
     useUnifiedTopology: true, 
     useNewUrlParser: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
 }, () => {
     console.log("DB connect");
 })
+
+app.use(express.json());
+app.use(updateLastSeen)
+app.use(checkAuth)
+
+
 
 app.use("/api/user", UserRouter)
 app.use("/api/dialogs", DialogRouter)
@@ -22,6 +35,6 @@ app.get("/", (req: any, res: any) => {
     res.send("API SERVER");
 });
 
-app.listen(4000, () => {
-    console.log("Server started on *:4000");
+app.listen(process.env.PORT, () => {
+    console.log(`Server started on *:${process.env.PORT}`);
 });
