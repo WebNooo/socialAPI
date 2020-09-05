@@ -1,18 +1,13 @@
 import mongoose from 'mongoose';
 import express from 'express';
 import {UserRouter, DialogRouter, MessageRouter}  from './routes/Index'
-import {updateLastSeen, checkAuth} from './middlewares/Index';
 import dotenv from "dotenv"
 
 const app = express();
 
 dotenv.config();
 
-export interface ProcessEnv {
-    [key: string]: string | undefined
-}
-
-mongoose.connect(process.env.DB_CONNECT ?? '', {
+mongoose.connect(process.env.DB_CONNECT || "", {
     useUnifiedTopology: true, 
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -22,10 +17,6 @@ mongoose.connect(process.env.DB_CONNECT ?? '', {
 })
 
 app.use(express.json());
-app.use(updateLastSeen)
-app.use(checkAuth)
-
-
 
 app.use("/api/user", UserRouter)
 app.use("/api/dialogs", DialogRouter)

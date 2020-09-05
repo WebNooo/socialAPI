@@ -1,2 +1,2 @@
-export {default as verifyToken} from "./verifyToken"
-export {default as createToken} from "./createToken"
+export {default as randomString} from "./randomString"
+export {default as GMailService} from "./GMailService"

@@ -2,8 +2,8 @@ import mongoose, {Schema, Document} from "mongoose"
 import validator from 'validator';
 
 export interface IUser extends Document{
-    email: String,
-    password:String,
+    email: string,
+    password:string,
     firstName:String,
     lastName:String,
     birthday?:Date,

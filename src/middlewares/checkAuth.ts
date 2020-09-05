@@ -1,27 +1,17 @@
 import express from "express";
-import {verifyToken} from "./../utils"
-import { IUser } from "../models/User";
 import jwt from "jsonwebtoken";
+import { UserModel } from "./../models/Index";
 
 
-export default (req: express.Request, res: express.Response, next:express.NextFunction) => {
-     let token = req.header('auth-token');
-    // if (token) {
-    //     try {
-    //         req.user = jwt.verify(token, process.env.JWT_SECRET || "");
-    //         res.send(req.user)
-    //         next();
-    //     }catch (err){
-    //         res.send(err);
-    //     }
-    // }
-    // return res.send({message: "Token not found"});
+export default async (req: express.Request, res: express.Response, next:express.NextFunction) => {
+    const token = req.header("token");
+    if (!token) return res.json({code: 1, message: "Incorrect Token"})
 
-    verifyToken(token)
-    .then((user) => {
-        req.user = user
+    try {
+        req.user = jwt.verify(token, process.env.JWT_SECRET || "");
+        await UserModel.updateOne({_id: req.user._id },  { $set:  { lastSeen: new Date() } })
         next();
-    }).catch(() => {
-        res.status(403).json({message: "Invlaid auth token provided"})
-    });
+    }catch (err){
+        res.json({code: 2, message: "Invalid Token"})
+    }
 }
