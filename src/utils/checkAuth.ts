@@ -1,6 +1,6 @@
 import express from "express";
 import jwt from "jsonwebtoken";
-import { UserModel } from "./../models/Index";
+import { UserModel } from "../models/Index";
 
 
 export default async (req: express.Request, res: express.Response, next:express.NextFunction) => {

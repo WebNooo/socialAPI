@@ -1,6 +1,6 @@
 import express from 'express'
 import {MessageController} from '../controllers/Index'
-import { checkAuth } from '../middlewares/Index';
+import { checkAuth } from '../utils';
 
 const MessageRouter = express.Router();
 

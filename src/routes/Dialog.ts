@@ -1,6 +1,6 @@
 import express from 'express'
 import {DialogController} from '../controllers/Index'
-import {checkAuth} from '../middlewares/Index'
+import {checkAuth} from '../utils'
 
 const DialogRouter = express.Router();
 const Dialog = new DialogController()
