@@ -4,9 +4,10 @@ import { checkAuth } from '../utils';
 
 const MessageRouter = express.Router();
 
-const Messages = new MessageController();
+const messageController = new MessageController();
 
-MessageRouter.post("/create", checkAuth, Messages.create)
-MessageRouter.get("/:id", checkAuth, Messages.index)
+MessageRouter.post("/setRead", checkAuth, messageController.setRead)
+MessageRouter.post("/create", checkAuth, messageController.create)
+MessageRouter.get("/:id", checkAuth, messageController.index)
 
 export default MessageRouter;

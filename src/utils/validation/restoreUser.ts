@@ -1,5 +1,5 @@
-import Joi from '@hapi/joi';
+import {check} from 'express-validator'
 
-export default Joi.object({
-    email: Joi.string().min(6).required().email(),
-})
+export default [
+    check('email').isEmail().exists()
+]

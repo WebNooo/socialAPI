@@ -1,9 +1,12 @@
 import mongoose, {Schema, Document} from "mongoose"
 import validator from 'validator';
+import {differenceInMinutes} from "date-fns";
 
 export interface IUser extends Document{
     email: string,
     password:string,
+    nick:string,
+    tag:string,
     firstName:String,
     lastName:String,
     birthday?:Date,
@@ -16,13 +19,17 @@ export interface IUser extends Document{
     status?:String,
     gender:Number,
     confirmed?:Boolean,
-    confirmHash?:String
+    confirmHash?:String,
+    connectId:string,
+    isOnline:boolean
 }
 
 const UserSchema = new Schema(
     {
         email:{type: String, required: true, unique:true, validate: [validator.isEmail, "Invalid Email"]},
         password:{type: String, required: true},
+        nick: {type: String},
+        tag: {type: String, unique:true},
         firstName:{type: String, required: true},
         lastName:{type: String, required: true},
         birthday:{type: Date},
@@ -35,13 +42,22 @@ const UserSchema = new Schema(
         status:{type: String},
         gender:{type: Number, required: true, default: 0},
         confirmed: {type: Boolean, default: false},
-        confirmHash: {type: String}
+        confirmHash: {type: String},
+        connectId: {type: String}
     },
     {
         timestamps: true
     }
 );
 
+UserSchema.virtual('isOnline').get(function(this:IUser) {
+    return differenceInMinutes(new Date(), this.lastSeen || Date.now() / 1000) < 1;
+})
+
+UserSchema.virtual('isOnlineMinutes').get(function(this:IUser) {
+    return differenceInMinutes(new Date(), this.lastSeen || Date.now() - Date.now());
+})
+UserSchema.set('toJSON', {virtuals: true})
 const UserModel = mongoose.model<IUser>("Users", UserSchema);
 
 export default UserModel;

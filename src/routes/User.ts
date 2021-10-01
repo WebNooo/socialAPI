@@ -1,16 +1,18 @@
 import express from 'express'
-import {UserController} from '../controllers/Index';
+import { UserController } from '../controllers/Index';
 import { checkAuth } from '../utils';
+import { loginValidation, createValidation, restoreValidation } from '../utils/validation';
+
+const userController = new UserController();
 
 const UserRouter = express.Router();
-const User = new UserController();
 
-
-UserRouter.post("/create", User.create);
-UserRouter.post("/login", User.login);
-UserRouter.post("/restore", User.restore);
-UserRouter.get("/", checkAuth, User.show);
-UserRouter.get("/:id", checkAuth, User.show);
+UserRouter.post("/create", createValidation, userController.create);
+UserRouter.post("/login", loginValidation, userController.login);
+UserRouter.post("/restore",restoreValidation, userController.restore);
+UserRouter.post("/verify", userController.verify);
+UserRouter.get("/", checkAuth, userController.show);
+UserRouter.get("/:id", checkAuth, userController.show);
 
 
 export default UserRouter;

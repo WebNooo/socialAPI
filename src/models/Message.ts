@@ -3,12 +3,13 @@ import validator from 'validator';
 
 const messages = new Schema({
     user: {
-        type: String,
-        required: true
+        type: mongoose.Types.ObjectId,
+        required: true,
+        ref: "Users",
         },
     dialog: {
         type: mongoose.Types.ObjectId, 
-        ref: "Dialogs",
+        ref: "dialogs",
         required: true
     },
     unread: {

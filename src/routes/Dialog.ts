@@ -1,15 +1,16 @@
 import express from 'express'
 import {DialogController} from '../controllers/Index'
 import {checkAuth} from '../utils'
+import {dialogValidation} from '../utils/validation';
 
 const DialogRouter = express.Router();
-const Dialog = new DialogController()
+const dialogController = new DialogController();
 
-DialogRouter.get("/create", checkAuth, Dialog.create)
-DialogRouter.delete("/delete", checkAuth, Dialog.delete)
-DialogRouter.post("/add", checkAuth, Dialog.add)
-DialogRouter.get("/", checkAuth, Dialog.index)
-DialogRouter.get("/:id", checkAuth, Dialog.index)
+DialogRouter.post("/create", checkAuth, dialogController.create)
+DialogRouter.delete("/delete", checkAuth, dialogValidation, dialogController.delete)
+DialogRouter.post("/add", checkAuth, dialogValidation, dialogController.add)
+DialogRouter.get("/", checkAuth, dialogController.index)
+DialogRouter.get("/:id", checkAuth, dialogController.index)
 
 
 export default DialogRouter;

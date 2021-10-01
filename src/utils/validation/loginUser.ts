@@ -1,6 +1,10 @@
-import Joi from '@hapi/joi';
+import {check} from 'express-validator'
+import UserModel from '../../models/User'
 
-export default Joi.object({
-    email: Joi.string().min(6).required().email(),
-    password: Joi.string().min(8).required()
-})
+export default [
+    check('email')
+    .isEmail().withMessage('Email имеет не верный формат'),
+
+    check('password')
+    .exists().withMessage("Поле обязательно для заполнения")
+]

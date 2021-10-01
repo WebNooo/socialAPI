@@ -33,7 +33,8 @@ const Dialogs = new Schema({
     },
     lastMessage: {
         type: mongoose.Types.ObjectId,
-        ref: "Messages",
+        ref: "messages",
+        default: null
     },
     deleted: {
         type: Boolean, 
